@@ -173,43 +173,9 @@ Boutique Order App — `OrderDetailDialog` Cypress component test.
 
 # Current Position
 
-The TypeScript prerequisites needed for the current part of the test have been covered sufficiently.
+React ve React Router prerequisites required for the current test structure are sufficiently covered.
 
-Callback behaviour was reinforced through the existing `map()` example only because it was required to understand callback usage.
-
-Do not continue sequentially through the remaining array exercises.
-
-Return to the original test file.
-
-Current section:
-
-```tsx
-function LocationProbe() {
-  const location = useLocation();
-
-  return <span data-testid="location">{location.pathname}</span>;
-}
-
-function TestOrdersLayout() {
-  return (
-    <>
-      <OrdersDashboard />
-      <Outlet />
-      <LocationProbe />
-    </>
-  );
-}
-```
 
 ## Next
 
-Continue incrementally with the concepts required by this section:
-
-1. React function components
-2. JSX
-3. Rendering components with `<Component />`
-4. React Fragment `<>...</>`
-5. `useLocation`
-6. `Outlet`
-
-Then return to the remaining routing and Cypress code in the same source file.
+Return to the OrderDetailDialog Cypress component test and continue with cy.mount(), then the Cypress test structure and network control used by the source.
