@@ -1,7 +1,9 @@
 /*
  * FUNCTION FOUNDATIONS
  *
- * A function is a named and reusable block of code.
+ * A function is a reusable set of instructions. It can receive input,
+ * perform work, and optionally return a value. A declaration gives it a name;
+ * later lessons also show functions stored in variables.
  *
  * Functions help us:
  * - group related instructions
@@ -11,7 +13,9 @@
  *
  * A function may be called once or many times.
  * Declaring a function does not execute its body.
- * The body runs only when the function is called.
+ * The body runs only when the function is called with parentheses.
+ * Read each example in execution order: first the top-level program reaches
+ * a call, then it runs the function body, then it resumes after the call.
  */
 
 /*
@@ -23,6 +27,10 @@
  * - a function name
  * - parentheses
  * - a function body between curly braces
+ *
+ * The : void annotation describes the output: the caller should not expect
+ * a useful returned value. console.log prints to the terminal, but printing
+ * is not the same as returning a value.
  */
 
 function announceLoginCheck(): void {
@@ -35,8 +43,9 @@ console.log('Function declared but not called yet');
 /*
  * Parentheses after the function name call the function.
  *
- * Program execution enters the function body, executes its instructions and then returns
- * to the line following the call.
+ * Program execution enters the function body, executes its instructions and
+ * then continues at the line following the call. Each call starts the body
+ * again; the declaration itself prints nothing.
  */
 
 console.log('Before first function call');
@@ -63,6 +72,8 @@ console.log('After second function call');
  *
  * In the declaration below, statusCode is a parameter.
  * In printReceivedStatus(200), 200 is an argument.
+ * The : number annotation checks that callers supply a number. It is a
+ * TypeScript check and does not convert a string into a number at runtime.
  */
 
 function printReceivedStatus(
@@ -95,7 +106,9 @@ printReceivedStatus(500);
  * Multiple parameters
  *
  * A function can receive more than one parameter.
- * Arguments are matched to parameters by position.
+ * Arguments are matched to parameters by position, starting on the left.
+ * For an API response, we might want one function to display the endpoint,
+ * its HTTP status, and its response time together.
  */
 
 function printResponseDetails(
@@ -136,7 +149,9 @@ printResponseDetails(
  * SECTION 4
  * Function call and function reference
  *
- * Using parentheses calls the function immediately.
+ * Using parentheses calls the function immediately. The expression
+ * printReceivedStatus(201) produces the call's result after its body runs.
+ * Because this function returns void, that result is not useful to the caller.
  */
 
 console.log('Calling the function now');
@@ -147,7 +162,8 @@ printReceivedStatus(201);
  * Using the function name without parentheses
  * does not call the function.
  *
- * The function itself can be stored in a variable.
+ * The function itself can be stored in a variable and called later.
+ * Assignment here only copies the function reference; it does not print.
  */
 
 const savedStatusPrinter = printReceivedStatus;
@@ -178,6 +194,10 @@ savedStatusPrinter(503);
  * savedStatusPrinter(503)
  *     Calls the function through the saved reference.
  *
+ * const result = printReceivedStatus(503) would CALL the function now
+ * and store its returned value, not the function itself. We will examine
+ * returned values in the next file.
+ *
  * This distinction will become especially important
  * when we study callbacks and Cypress commands.
  */
@@ -191,6 +211,21 @@ savedStatusPrinter(503);
  * - calculate expected results
  * - verify application behaviour
  *
- * Later, Cypress and Vitest will also receive functions as values. 
+ * Later, Cypress and Vitest will also receive functions as values.
  * Before studying that structure, we must clearly distinguish a function from a call.
+ */
+
+/*
+ * INTERVIEW ANSWERS
+ *
+ * Q: What is the difference between declaring and calling a function?
+ * A: A declaration defines the function. A call with parentheses executes
+ *    its body using the arguments supplied for that call.
+ *
+ * Q: What is the difference between a parameter and an argument?
+ * A: A parameter is the named input in the definition. An argument is the
+ *    actual value passed into that parameter when the function is called.
+ *
+ * Q: What is the difference between fn and fn()?
+ * A: fn refers to a function value; fn() executes it and produces its result.
  */

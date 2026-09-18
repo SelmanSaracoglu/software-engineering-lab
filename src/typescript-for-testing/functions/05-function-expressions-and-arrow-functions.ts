@@ -14,7 +14,11 @@
  * - return values
  * - be called with parentheses
  *
- * The primary difference in this lesson is syntax.
+ * We begin with syntax. Later sections use function values as parameters
+ * and distinguish a function type from the function it describes.
+ * All three examples below implement the same rule, so they return the
+ * same answer for the same input. The forms also have other language
+ * differences that this lesson does not need yet.
  */
 
 /*
@@ -49,6 +53,7 @@ console.log(
  * The function below does not have a separate name after the function keyword.
  *
  * The variable name is used to access and call it.
+ * The = performs the assignment; the body still waits for a call with ().
  */
 
 const isStatusSuccessfulExpression = function (
@@ -82,6 +87,7 @@ console.log(
  * =>
  *
  * The return type is written before the arrow.
+ * Here the => belongs to the actual function value.
  */
 
 const isStatusSuccessfulArrow = (
@@ -194,15 +200,15 @@ console.log(
  *     // test instructions
  * }
  *
- * We are not studying callbacks yet.
- * First, we need to understand that the arrow syntax creates a function value.
+ * We will use callbacks later in this file. First, recognise that the
+ * arrow syntax creates a function value.
  *
  * The function does not execute merely because it has been created or assigned to a variable.
  * It must still be called by some code.
  */
 
 /*
- * FINAL SUMMARY
+ * RECAP BEFORE FUNCTION TYPES
  *
  * function declaration:
  * A named function declared with the function keyword.
@@ -211,11 +217,11 @@ console.log(
  * A function value assigned to a variable.
  *
  * arrow function:
- * A shorter syntax for creating a function value.
+ * Another syntax for creating a function value.
  *
  * In all three cases:
- * - the function name without () refers to the function
- * - the function name with () calls the function
+ * - a variable or function name without () refers to the function
+ * - adding () calls the function through that name
  */
 
 /*
@@ -317,18 +323,21 @@ console.log(
  */
 
 /*
-SECTION 7: THE TYPE OF A FUNCTION VALUE
-
-A variable can have a function as its value.
-Therefore, the variable can also have a function type.
-
-The function type below says:
-
-- the function receives one number
-- the function returns one boolean
-
-The first arrow belongs to the type description.
-The second arrow creates the actual function value.
+ * SECTION 7
+ * The type of a function value
+ *
+ * A variable can hold a function, so its type can describe the function's
+ * inputs and output: (statusCode: number) => boolean.
+ *
+ * In the assignment below, read the three parts separately:
+ * - ':' introduces a TypeScript type description; nothing runs here.
+ * - '=' assigns a real function value to the variable.
+ * - the second '=>' creates the actual arrow function.
+ *
+ * The first '=>' appears inside the TYPE. It means "number in, boolean out".
+ * The second '=>' appears after the '='. It introduces executable code.
+ * TypeScript checks that the value matches the type, then removes type
+ * annotations when the code is run.
 */
 
 const checkSuccessfulStatus: (
@@ -354,14 +363,13 @@ console.log(
 );
 
 /*
-SECTION 8: A FUNCTION MUST MATCH ITS FUNCTION TYPE
-
-The variable below is allowed to store a function that:
-
-- receives one number
-- returns one boolean
-
-However, the assigned function returns a string. TypeScript should reject this assignment.
+ * SECTION 8
+ * A function must match its function type
+ *
+ * validStatusChecker matches its type: number in, boolean out.
+ * createStatusMessage also matches its own type: number in, string out.
+ * If we assigned createStatusMessage to a variable typed as a boolean
+ * checker, TypeScript would report a type error.
 */
 
 const validStatusChecker: (
@@ -376,18 +384,22 @@ const createStatusMessage: (
     return `Received status: ${statusCode}`;
 };
 
+// Uncomment to observe the mismatch: a string-returning function
+// cannot be assigned where a boolean-returning function is required.
+// const invalidStatusChecker: (statusCode: number) => boolean =
+//     createStatusMessage;
+
 /*
-SECTION 9: NAMING A FUNCTION TYPE
-
-A function type can be given a reusable name.
-
-StatusChecker is not a function and cannot be called.
-It is only a TypeScript type name.
-
-Every function assigned as a StatusChecker must:
-
-- receive one number
-- return one boolean
+ * SECTION 9
+ * Naming a function type
+ *
+ * A function type can be given a reusable name. StatusChecker describes
+ * a contract: one number in, one boolean out. It is erased at runtime;
+ * StatusChecker itself is not a callable function.
+ *
+ * Both functions below satisfy that contract but apply different rules.
+ * The parameter's number type is inferred from StatusChecker, so we do
+ * not need to write ': number' again in each implementation.
 */
 
 type StatusChecker = (
@@ -421,13 +433,16 @@ console.log(
 ); // 500 is a server error: true
 
 /*
-SECTION 10: PASSING A FUNCTION AS AN ARGUMENT
-
-A callback is a function passed to another function.
-
-The callback is not called while it is being passed. The receiving function decides when to call it.
-
-This example is synchronous: the callback finishes before runStatusCheck continues.
+ * SECTION 10
+ * Passing a function as an argument
+ *
+ * A callback is a function passed to another function. In
+ * runStatusCheck(204, isSuccessfulHttpStatus), the second argument is a
+ * function value: no () follows its name. The checker parameter receives
+ * that value, and checker(statusCode) actually calls it.
+ *
+ * In this example the call is synchronous: it returns before
+ * runStatusCheck continues to the next console.log.
 */
 
 function runStatusCheck(
@@ -457,13 +472,12 @@ console.log(
 );
 
 /*
-SECTION 11: CHANGING BEHAVIOR WITH A CALLBACK
-
-runStatusCheck contains the execution process.
-
-The callback contains the rule that will be executed.
-
-The same status code can produce different results when it is evaluated by different callback functions.
+ * SECTION 11
+ * Changing behaviour with a callback
+ *
+ * runStatusCheck controls the execution order. The callback supplies
+ * the rule. For status 500, a success rule returns false while a server
+ * error rule returns true; the receiving function stays the same.
 */
 
 const statusCodeToEvaluate = 500;
@@ -489,20 +503,18 @@ console.log(
 );
 
 /*
-SECTION 12: WRITE AND PASS YOUR OWN CALLBACK
-
-A client error has a status code from 400 through 499.
-
-Create a StatusChecker for this rule.
-Pass the function itself to runStatusCheck.
-runStatusCheck will call it through checker(statusCode).
+ * SECTION 12
+ * Write and pass your own callback
+ *
+ * A client error has a status code from 400 through 499. The variable
+ * below holds a checker for that range. Passing its name without ()
+ * supplies the function; runStatusCheck calls it with the status code.
 */
 
 const isClientErrorHttpStatus: StatusChecker =
     (statusCode) => {
         return statusCode >= 400 && statusCode < 500;
     };
-
 
 const clientErrorResult = runStatusCheck(
     404,
@@ -512,25 +524,16 @@ const clientErrorResult = runStatusCheck(
 console.log('Is 404 a client error?', clientErrorResult);
 
 /*
-SECTION 13: INLINE CALLBACKS
-
-A callback can be defined separately and passed by name:
-
-    runStatusCheck(404, isClientErrorHttpStatus);
-
-It can also be written directly at the place where it is passed.
-This is called an inline callback.
-
-The arrow function below is created while the arguments for
-runStatusCheck are prepared. Its body does not run at that point.
-
-runStatusCheck receives that function in its checker parameter.
-Inside runStatusCheck, checker(statusCode) calls the function.
-The returned boolean becomes the result of runStatusCheck.
-
-TypeScript knows that the inline callback receives a number
-and must return a boolean. It gets this information from the
-StatusChecker type of the checker parameter.
+ * SECTION 13
+ * Inline callbacks
+ *
+ * Instead of passing a separately named checker, we can write a function
+ * directly as the second argument. Creating that function does not run
+ * its body. runStatusCheck receives it in checker and later calls it with
+ * checker(statusCode). The returned boolean becomes its final result.
+ *
+ * TypeScript infers receivedStatusCode: number and a boolean return
+ * from the StatusChecker type of the checker parameter.
 */
 
 const inlineClientErrorResult = runStatusCheck(
@@ -546,25 +549,30 @@ console.log(
     inlineClientErrorResult
 );
 
-const sample = runStatusCheck(
+const inlineServerErrorResult = runStatusCheck(
     503,
     (receivedStatusCode) => {
-        return receivedStatusCode >=500 && receivedStatusCode < 600
-    }
+        return receivedStatusCode >= 500 &&
+            receivedStatusCode < 600;
+    },
 );
 
+console.log('Is 503 a server error?', inlineServerErrorResult);
+
 /*
-SECTION 14: A CALLBACK THAT REPRESENTS WORK TO RUN
-
-A callback's function type depends on what the receiving function needs.
-
-StatusChecker is (statusCode: number) => boolean:
-runStatusCheck gives it a status code and uses its result.
-
-The testBody callback below is () => void:
-runExampleTest gives it no arguments and does not use a returned value. It asks the callback to perform work.
-
-Defining or passing the callback does not run its body. The receiving function runs it at testBody().
+ * SECTION 14
+ * A callback that represents work to run
+ *
+ * A callback's type depends on what the receiver needs. StatusChecker
+ * is (statusCode: number) => boolean: the receiver passes a number and
+ * uses the result. The testBody callback is () => void: the receiver
+ * gives it no arguments and does not use its returned value.
+ *
+ * Passing the callback does not run its body. Here runExampleTest calls
+ * testBody() synchronously between the "Starting" and "Finished" logs.
+ * This is a learning example, not an actual test runner: it makes no
+ * assertion and does not fail when an expected result is wrong. Real
+ * test frameworks control when their callbacks run.
 */
 
 function runExampleTest(
@@ -584,3 +592,23 @@ runExampleTest(
         console.log('Checking the status code');
     }
 );
+
+/*
+ * INTERVIEW ANSWERS
+ *
+ * Q: What is a function expression or an arrow function?
+ * A: Each is a way to create a function value that can be assigned to
+ *    a variable. The body runs when the function is called, not assigned.
+ *
+ * Q: What do the two arrows in an annotated arrow function mean?
+ * A: The arrow after ':' describes the function's input and output type.
+ *    The arrow after '=' creates the actual function value.
+ *
+ * Q: What is a callback?
+ * A: A callback is a function passed to another function. The receiver
+ *    can call it when needed, as runStatusCheck does with checker(statusCode).
+ *
+ * Q: How is (statusCode: number) => boolean different from () => void?
+ * A: The first receives a number and returns a boolean. The second
+ *    receives no arguments and has no useful return value for its caller.
+ */

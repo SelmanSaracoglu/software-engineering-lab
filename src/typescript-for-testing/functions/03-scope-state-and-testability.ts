@@ -1,7 +1,9 @@
 /*
  * FUNCTION SCOPE, STATE AND TESTABILITY
  *
- * Scope determines where a variable can be accessed.
+ * Scope determines where a name can be accessed in the source code.
+ * A separate question is whether a value is recreated for each call
+ * or shared across calls. We will observe both questions separately.
  *
  * In this chapter we examine:
  * - function-local scope
@@ -12,9 +14,8 @@
  * - pure functions
  * - side effects
  *
- * These concepts matter in testing because hidden or
- * shared state can make test results depend on the
- * execution order of other tests.
+ * These concepts matter in testing because shared state that is not reset
+ * can make a result depend on the order in which tests run.
  */
 
 /*
@@ -24,6 +25,8 @@
  * A parameter belongs to the function in which it is declared.
  *
  * A variable declared inside a function is also local to that function.
+ * Returning a value makes that value available to the caller; it does
+ * not expose the function's local variable name.
  */
 
 function getScopedStatusMessage(
@@ -92,6 +95,8 @@ console.log(
  * Local variables are created again whenever the function is called.
  *
  * They are not automatically shared between calls.
+ * This example increments the count only once per call. If it printed
+ * 1, then 2, the count would have to live outside these calls.
  */
 
 function inspectLocalStatusCheck(
@@ -159,6 +164,8 @@ console.log(
  *
  * An outer variable is not recreated for every call.
  * Its changed value can remain available after a call.
+ * Unlike the previous local counter, totalRecordedStatusChecks below
+ * is declared once and updated by both calls.
  */
 
 let totalRecordedStatusChecks = 0;
@@ -238,13 +245,17 @@ console.log(
  *
  * Outer code:
  * - cannot access function-local names
+ *
+ * Scope describes which names are visible in code. A local value being
+ * recreated on every call is a separate property of function execution.
  */
 
 /*
  * SECTION 5
  * Pure functions
  *
- * A pure function calculates its output from its inputs and does not change values outside the function.
+ * A pure function calculates its output from its inputs without
+ * observable side effects.
  *
  * The same inputs produce the same output.
  */
@@ -286,7 +297,7 @@ console.log(
  * SECTION 6
  * Side effects
  *
- * A side effect happens when a function interacts with something outside its returned value.
+ * A side effect is an observable action besides returning a value.
  *
  * Examples include:
  * - changing an outer variable
@@ -300,7 +311,9 @@ console.log(
  *
  * Side effects are not automatically wrong. Real applications and Cypress tests need them.
  *
- * However, we must recognise them because they can make one test depend on actions performed by another test.
+ * If an effect changes shared state and is not reset, it can make one
+ * test depend on actions performed by another test. Logging is also a
+ * side effect, but it does not by itself change this counter.
  */
 
 /*
@@ -319,7 +332,7 @@ console.log(
  * changes totalRecordedStatusChecks.
  * Its surrounding state must be considered when testing.
  *
- * If one test changes shared state and another test assumes the original state, 
+ * If one test changes shared state and another test assumes the original state,
  * test order can affect the result.
  *
  * This is why tests often reset:
@@ -334,7 +347,8 @@ console.log(
  * FINAL SUMMARY
  *
  * Local scope:
- * A parameter or variable belongs to one function call.
+ * A parameter or local name is accessible inside its function, and
+ * each call here gets separate local values.
  *
  * Outer scope:
  * A function may access values declared outside it.
@@ -343,8 +357,25 @@ console.log(
  * An outer value may continue changing across calls.
  *
  * Pure function:
- * Its result depends on its inputs and it does not change outside state.
+ * Its result depends on its inputs and it has no observable side effects.
  *
  * Side effect:
- * The function interacts with or changes something outside its returned value.
+ * An observable action in addition to producing a return value.
+ */
+
+/*
+ * INTERVIEW ANSWERS
+ *
+ * Q: What is the difference between a local and an outer variable?
+ * A: A local name is accessible within its function. A function can also
+ *    access permitted outer names; changing an outer variable can make
+ *    later calls observe its updated value.
+ *
+ * Q: What is a pure function, and why is it easy to test?
+ * A: For the same inputs it produces the same result without observable
+ *    side effects. Its result can be checked without preparing shared state.
+ *
+ * Q: What problem can shared mutable state cause in tests?
+ * A: An earlier test can change the state assumed by a later test.
+ *    Reset or isolate that state so test order does not change the result.
  */

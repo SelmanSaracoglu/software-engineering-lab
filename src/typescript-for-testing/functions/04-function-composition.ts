@@ -1,11 +1,15 @@
 /*
  * FUNCTION COMPOSITION
  *
- * Function composition means building a larger operation by combining smaller functions.
+ * In this lesson, composing functions means building a larger operation
+ * by calling smaller functions and using their returned values.
  *
  * One function may call another function and use the value returned by that call.
  *
  * This helps each function have one clear responsibility.
+ * Follow the values as well as the order of calls: the inner call finishes
+ * first, then the outer function can use its result and eventually return
+ * a different result to the original caller.
  */
 
 /*
@@ -14,6 +18,8 @@
  *
  * This function has one responsibility:
  * determine whether an HTTP status code represents a successful response.
+ * The range 200 <= statusCode < 300 covers all 2xx statuses.
+ * The console messages are traces for learning; they are side effects.
  */
 
 function isSuccessfulStatus(
@@ -42,6 +48,8 @@ function isSuccessfulStatus(
  * createStatusReport does not calculate the status range itself.
  *
  * It calls isSuccessfulStatus and uses the returned boolean value to select a message.
+ * Passing statusCode without parentheses supplies the current number;
+ * isSuccessfulStatus(statusCode) uses parentheses to call the validator.
  */
 
 function createStatusReport(
@@ -167,6 +175,9 @@ console.log(
  * - whether createStatusReport produces the correct message
  *
  * We can also verify them together because createStatusReport uses isSuccessfulStatus.
+ * The testing level depends on what we exercise and what we isolate.
+ * Calling another ordinary function does not turn this code into a React
+ * component or automatically determine a particular test type.
  *
  * This structure appears frequently in:
  * - application code
@@ -223,20 +234,20 @@ console.log(
 
 function isResponseTimeWithinLimit(
     actualResponseTime: number,
-    maximumResponseTime: number
-):boolean {
-
-    const responseTimeIsWithinLimit = actualResponseTime <= maximumResponseTime;
+    maximumResponseTime: number,
+): boolean {
+    const responseTimeIsWithinLimit =
+        actualResponseTime <= maximumResponseTime;
 
     return responseTimeIsWithinLimit;
-} 
-
-
+}
 
 function createResponseTimeReport(
     actualResponseTime: number,
     maximumResponseTime: number,
 ): string {
+    // Forward this call's inputs. Fixed example numbers here would make
+    // different calls produce the same answer for the wrong reason.
     const responseTimeIsWithinLimit =
         isResponseTimeWithinLimit(
             actualResponseTime,
@@ -262,8 +273,8 @@ console.log(negativeMessage);
 /*
  * PRACTICE NOTES
  *
- * A function calling itself is called recursion. 
- * Recursion requires a stopping condition.
+ * A function calling itself is called recursion.
+ * Recursion requires a stopping condition and progress toward it.
  *
  * Without a stopping condition, function calls continue until JavaScript throws:
  *
@@ -359,4 +370,20 @@ console.log(deniedLoginReport);
  *
  * We deliberately store each returned value in a clearly named variable instead of nesting the calls.
  * This makes the execution order easier to read and debug.
+ */
+
+/*
+ * INTERVIEW ANSWERS
+ *
+ * Q: Why split a check and a report into separate functions?
+ * A: The check returns the decision; the report converts that decision
+ *    into text. We can reuse and verify each responsibility separately.
+ *
+ * Q: What happens when one function calls another?
+ * A: The called function runs and returns to the caller. The caller can
+ *    use that value to decide what to do or what to return next.
+ *
+ * Q: Does calling a second function make this a component test?
+ * A: No. A component test exercises a UI component. Calling a helper
+ *    function alone does not determine the test level.
  */

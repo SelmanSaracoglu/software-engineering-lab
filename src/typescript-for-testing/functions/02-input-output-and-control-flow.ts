@@ -7,6 +7,9 @@
  * - return an output to its caller
  *
  * Printing a value and returning a value are different operations.
+ * In a test, this distinction decides whether the caller can inspect
+ * the result: terminal output is visible to a person; a returned value
+ * can also be compared by code.
  */
 
 /*
@@ -17,6 +20,8 @@
  * It does not return a useful value to its caller.
  *
  * The return type void communicates this behaviour through TypeScript.
+ * The function may still have an effect: console.log writes output.
+ * No return statement sends that printed text back to the caller.
  */
 
 function printReceivedStatus(
@@ -53,7 +58,9 @@ console.log(
  * 8. Program execution continues after the assignment.
  *
  * TypeScript describes this function as void.
- * At runtime, a function without a return value produces undefined.
+ * At runtime, a function that reaches its end without returning a value
+ * produces undefined. void is the TypeScript return type; undefined is
+ * the JavaScript value observed in this example.
  */
 
 /*
@@ -62,7 +69,9 @@ console.log(
  *
  * return sends a value back to the code that called the function.
  *
- * The explicit boolean return type promises that every completed path returns a boolean value.
+ * The explicit boolean return type asks TypeScript to check the output.
+ * The <= operator includes the boundary: 1000 ms is acceptable if the
+ * maximum is 1000 ms. The caller supplies the numbers at each call.
  */
 
 function isResponseTimeAcceptable(
@@ -115,6 +124,8 @@ console.log(
  * different results.
  *
  * Only one return path is executed during one call.
+ * This function also prints which path ran so that we can follow the
+ * execution order. Those prints do not change the returned string.
  */
 
 function getStatusMessage(
@@ -191,6 +202,8 @@ console.log(
  *
  * Code below that return can only be reached when
  * the if condition is false.
+ * An early return is useful when a condition can settle the answer at
+ * once, for example an account that is already blocked.
  */
 
 function getLoginMessage(
@@ -249,6 +262,9 @@ console.log(
  *
  * Functions that return values allow the test to
  * inspect and verify those values.
+ * The example below prints PASS or FAIL for practice. It has no test
+ * framework assertion: printing FAIL alone would not fail a test run.
+ * We will later use assertions to make an incorrect result fail a test.
  */
 
 const responseTimeTestPassed =
@@ -279,4 +295,20 @@ if (responseTimeTestPassed) {
  * - can be printed
  * - can be compared
  * - can control later program behaviour
+ */
+
+/*
+ * INTERVIEW ANSWERS
+ *
+ * Q: How does console.log differ from return?
+ * A: console.log creates output as a side effect. return gives a value
+ *    to the caller and immediately stops the current function call.
+ *
+ * Q: What happens if a JavaScript function ends without returning a value?
+ * A: Its call evaluates to undefined. TypeScript often uses void to show
+ *    that callers should not use the return value.
+ *
+ * Q: Why is an early return useful?
+ * A: It ends a path as soon as its answer is known, so the remaining
+ *    statements run only for the other paths.
  */

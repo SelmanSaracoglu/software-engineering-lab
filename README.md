@@ -51,7 +51,13 @@ These focus on:
 - [x] Function declaration
 - [x] Function calls
 - [x] Return values
-- [ ] Parameters and arguments
+- [x] Parameters and arguments
+- [x] Function scope, return values, and shared state
+- [x] Function expressions, arrow functions, function types, and synchronous callbacks
+
+The runnable examples and explanations for these topics are in
+`src/typescript-for-testing/` and its `functions/` chapter. The examples
+print learning results; automated assertions are a later testing step.
 
 ### Modules
 
