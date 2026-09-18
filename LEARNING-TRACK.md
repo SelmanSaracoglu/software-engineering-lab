@@ -155,13 +155,13 @@ touches.
 
 ## 4. Preserve the theory–practice distinction
 
-| Theory under `notes/` | Practice under `src/` |
-| --- | --- |
-| Why APIs exist and how API styles are selected | Following or implementing a request in code |
-| Why runtime validation is required | Defining and using a Zod schema |
-| When TypeScript is a suitable choice | Applying types, unions, and narrowing |
-| How test levels are selected by risk | Writing and debugging Cypress or integration tests |
-| Why transactions protect invariants | Reading and implementing transaction code |
+| Theory under `notes/`                          | Practice under `src/`                              |
+| ---------------------------------------------- | -------------------------------------------------- |
+| Why APIs exist and how API styles are selected | Following or implementing a request in code        |
+| Why runtime validation is required             | Defining and using a Zod schema                    |
+| When TypeScript is a suitable choice           | Applying types, unions, and narrowing              |
+| How test levels are selected by risk           | Writing and debugging Cypress or integration tests |
+| Why transactions protect invariants            | Reading and implementing transaction code          |
 
 A concept may appear in both locations only when the files provide clearly
 different theoretical and practical value.
@@ -198,22 +198,3 @@ learn(cypress): complete component testing fundamentals
 When the current learning position changes, update the roadmap in the same
 commit as the related material. Git history records previous increments, so this
 file should not contain a session-by-session log.
-
----
-
-# Current Position
-
-## Theory track
-
-Active.
-
-The first module is **Product & Engineering Decisions**. The first subject is
-**Product Problem, User Need, and Capability Boundary**.
-
-## Practical track
-
-Paused until the theory-notes phase reaches its planned checkpoint.
-
-The completed practical material remains valid. Future practical roadmaps will
-be produced from selected repositories or code only when this track is resumed.
-
