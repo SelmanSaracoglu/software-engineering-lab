@@ -1,5 +1,9 @@
 {
   "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "foundation-check": "node --import tsx src/typescript-for-testing/foundation-check/01-typed-api-data-and-test-helpers.ts"
+  },
   "devDependencies": {
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.5",

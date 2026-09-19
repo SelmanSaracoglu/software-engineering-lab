@@ -39,47 +39,32 @@ These focus on:
 
 ## Current Learning Map
 
-### TypeScript Fundamentals
+### TypeScript Foundations for Testing
 
-- [x] Objects
-- [x] Properties and values
-- [x] Property access
-- [x] Arrays
-- [x] Array indexes
-- [x] Arrays of objects
-- [x] Nested data access
-- [x] Function declaration
-- [x] Function calls
-- [x] Return values
-- [x] Parameters and arguments
-- [x] Function scope, return values, and shared state
-- [x] Function expressions, arrow functions, function types, and synchronous callbacks
+The complete executable curriculum is under
+[`src/typescript-for-testing/`](src/typescript-for-testing/README.md).
 
-The runnable examples and explanations for these topics are in
-`src/typescript-for-testing/` and its `functions/` chapter. The examples
-print learning results; automated assertions are a later testing step.
+Implemented and compiler-verified chapters:
 
-### Modules
+- language and control-flow foundations
+- functions, callbacks, parameter patterns, and closures
+- objects, reusable object types, nested data, and immutable copies
+- arrays, safe index access, iteration, transformation, search, and aggregation
+- unions, narrowing, discriminated states, runtime boundaries, generics, and utility types
+- string, number, date, RegExp, JSON, and runtime validation
+- value imports, type-only imports, and module boundaries
+- class foundations and custom error subclasses
+- Promises, async/await, concurrency, and error handling
+- integrated typed API data and test-helper foundation check
 
-- [x] Import concept
-- [x] Package imports
-- [x] Relative imports
+These files are learning programs, not test-framework suites. They print and
+explain results; automated assertions begin in the testing-fundamentals stage.
+Material implementation and compiler verification do not by themselves prove
+individual mastery. A topic is learned when it can be explained, modified, and
+applied to a new example.
 
-### Array Transformations
-
-Existing practice:
-
-- [x] `map()`
-- [x] Mapping objects
-- [x] Updating one item
-- [x] `filter()`
-- [x] Object spread and immutability
-- [x] Array spread
-- [x] Combining arrays
-- [x] Shallow copy
-- [x] Nested immutable updates
-
-Some prerequisites for this section are still being formalized in `fundamentals/`.
+The next planned sequence is testing fundamentals followed by Cypress. React or
+another framework is not the next step merely because TypeScript material exists.
 
 ---
 
