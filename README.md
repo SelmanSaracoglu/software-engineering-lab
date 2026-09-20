@@ -39,7 +39,7 @@ These focus on:
 
 ## Current Learning Map
 
-### TypeScript Foundations for Testing
+### TypeScript Foundations for Testing and Automation
 
 The complete executable curriculum is under
 [`src/typescript-for-testing/`](src/typescript-for-testing/README.md).
@@ -50,10 +50,11 @@ Implemented and compiler-verified chapters:
 - functions, callbacks, parameter patterns, and closures
 - objects, reusable object types, nested data, and immutable copies
 - arrays, safe index access, iteration, transformation, search, and aggregation
+- collection choice with Array, object, Record, Map, and Set
 - unions, narrowing, discriminated states, runtime boundaries, generics, and utility types
 - string, number, date, RegExp, JSON, and runtime validation
 - value imports, type-only imports, and module boundaries
-- class foundations and custom error subclasses
+- class foundations, OOP contracts, composition, polymorphism, and custom errors
 - Promises, async/await, concurrency, and error handling
 - integrated typed API data and test-helper foundation check
 
@@ -63,8 +64,11 @@ Material implementation and compiler verification do not by themselves prove
 individual mastery. A topic is learned when it can be explained, modified, and
 applied to a new example.
 
-The next planned sequence is testing fundamentals followed by Cypress. React or
-another framework is not the next step merely because TypeScript material exists.
+The TypeScript language curriculum is now closed at the foundation level. The
+next planned sequence is testing fundamentals followed by Cypress. Later
+Node.js, API, log-processing, and security-automation work will apply this
+foundation without reopening it for unrelated syntax topics. React or another
+framework is not the next step merely because TypeScript material exists.
 
 ---
 
