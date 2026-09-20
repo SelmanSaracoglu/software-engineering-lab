@@ -84,6 +84,15 @@ The integrated foundation check distributes one feature across unit, component,
 API/integration, and E2E boundaries while validating requirement and high-risk
 coverage. The next practical stage is Vitest unit testing.
 
+### Unit Testing with Vitest
+
+The active Vitest curriculum is under
+[`src/unit-testing-with-vitest/`](src/unit-testing-with-vitest/README.md).
+
+The first increment separates a pure lockout policy from its test suite and
+uses real Vitest tests for Arrange-Act-Assert, matchers, boundary analysis,
+state transitions, deterministic time input, and table-driven cases.
+
 ---
 
 ## Learning Rule
