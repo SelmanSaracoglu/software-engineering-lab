@@ -72,13 +72,17 @@ framework is not the next step merely because TypeScript material exists.
 
 ### Test Engineering Foundations
 
-The active executable curriculum is under
+The completed executable curriculum is under
 [`src/test-engineering-foundations/`](src/test-engineering-foundations/README.md).
 
-The first increment connects requirements and risks to test conditions,
-scenarios, concrete test cases, expected and actual results, and failure
-investigation. Test frameworks are introduced only after this test-design
-language is understood.
+The completed stage connects requirements and risks to test conditions,
+scenarios, concrete test cases, design techniques, test-level selection,
+determinism, isolation, test data, environment control, expected evidence, and
+failure investigation.
+
+The integrated foundation check distributes one feature across unit, component,
+API/integration, and E2E boundaries while validating requirement and high-risk
+coverage. The next practical stage is Vitest unit testing.
 
 ---
 

@@ -11,11 +11,9 @@ and what evidence is required before reporting a defect.
 ## Curriculum status
 
 - [x] `01-requirement-risk-and-test-language.ts`
-- [ ] Test design techniques: positive and negative testing, equivalence
-  partitioning, boundary values, and state transitions
-- [ ] Test levels and risk-based distribution
-- [ ] Determinism, isolation, test data, and environment control
-- [ ] Integrated feature analysis and foundation check
+- [x] `02-test-design-techniques.ts`
+- [x] `03-test-levels-and-reliable-tests.ts`
+- [x] `04-test-engineering-foundation-check.ts`
 
 ## Verification
 
@@ -25,13 +23,27 @@ Compile the complete repository:
 npm run typecheck
 ```
 
-Run the current lesson:
+Run each lesson:
 
 ```bash
 npm run test-foundations:01
+npm run test-foundations:02
+npm run test-foundations:03
+npm run test-foundations:check
 ```
 
-Testing frameworks are intentionally not used in this first lesson. Vitest is
-introduced after the learner can define the expected behaviour and choose an
-appropriate test responsibility.
+Run the complete stage:
 
+```bash
+npm run test-foundations
+```
+
+## Completion boundary
+
+This stage is complete when a feature can be analyzed from requirement and risk
+through test conditions, scenarios, cases, expected evidence, and deliberate
+distribution across unit, component, API/integration, and E2E boundaries.
+
+Testing frameworks are intentionally not used in this stage. Vitest is the next
+curriculum stage and will implement test decisions that already have a purpose,
+expected result, and boundary.

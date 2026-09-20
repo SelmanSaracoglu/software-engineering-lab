@@ -460,36 +460,138 @@ console.log('Confirmed investigation:', confirmedProductDefect);
  */
 
 /*
- * APPLICATION TASK
+ * WORKED APPLICATION
  *
  * New requirement:
  * After five consecutive failed password attempts, an active account is locked
  * for fifteen minutes. A successful sign-in before the fifth failure resets the
  * consecutive-failure counter.
- *
- * Before writing code:
- * 1. Write two risks.
- * 2. Write at least two test conditions.
- * 3. Choose one condition and write one Given-When-Then scenario.
- * 4. Turn that scenario into one concrete test case.
- * 5. State the expected result without copying an implementation result.
- *
- * Do not start with Cypress commands. First prove why the test exists and what
- * observable behaviour would count as correct.
+ */
+
+const lockoutRequirement: Requirement = {
+    id: 'AUTH-LOCK-001',
+    statement:
+        'Repeated failed passwords temporarily lock an active account.',
+    acceptanceCriteria: [
+        'The fifth consecutive failed password locks the account.',
+        'The lock lasts fifteen minutes.',
+        'A successful sign-in before the threshold resets the counter.',
+    ],
+};
+
+const lockoutRisks: readonly Risk[] = [
+    {
+        id: 'RISK-LOCK-01',
+        description:
+            'An attacker can continue unlimited password attempts.',
+        impact: 5,
+        likelihood: 4,
+    },
+    {
+        id: 'RISK-LOCK-02',
+        description:
+            'A legitimate user remains locked after the required duration.',
+        impact: 3,
+        likelihood: 3,
+    },
+];
+
+const lockoutConditions: readonly TestCondition[] = [
+    {
+        id: 'COND-LOCK-01',
+        requirementId: lockoutRequirement.id,
+        relatedRiskIds: ['RISK-LOCK-01'],
+        objective:
+            'Verify that the fifth consecutive failure activates the lock.',
+    },
+    {
+        id: 'COND-LOCK-02',
+        requirementId: lockoutRequirement.id,
+        relatedRiskIds: ['RISK-LOCK-02'],
+        objective:
+            'Verify that the lock ends after exactly fifteen minutes.',
+    },
+    {
+        id: 'COND-LOCK-03',
+        requirementId: lockoutRequirement.id,
+        relatedRiskIds: ['RISK-LOCK-01'],
+        objective:
+            'Verify that success before the threshold resets the counter.',
+    },
+];
+
+const fifthFailureScenario: TestScenario = {
+    id: 'SCN-LOCK-001',
+    conditionId: 'COND-LOCK-01',
+    kind: 'NEGATIVE',
+    title: 'The fifth consecutive password failure locks the account',
+    given:
+        'an active account with four consecutive password failures',
+    when: 'a fifth incorrect password is submitted',
+    then: 'the account is locked for fifteen minutes',
+};
+
+type LockoutTestCase = {
+    id: string;
+    scenarioId: string;
+    preconditions: readonly string[];
+    input: {
+        failedAttemptsBeforeAction: number;
+        passwordIsCorrect: boolean;
+        actionTime: string;
+    };
+    expected: {
+        failedAttemptsAfterAction: number;
+        accountLocked: boolean;
+        lockedUntil: string;
+        sessionCreated: boolean;
+    };
+};
+
+const fifthFailureTestCase: LockoutTestCase = {
+    id: 'TC-LOCK-001',
+    scenarioId: fifthFailureScenario.id,
+    preconditions: [
+        'The account exists and is active.',
+        'Four consecutive failed attempts are stored.',
+        'The account is not already locked.',
+    ],
+    input: {
+        failedAttemptsBeforeAction: 4,
+        passwordIsCorrect: false,
+        actionTime: '2026-09-20T10:00:00.000Z',
+    },
+    expected: {
+        failedAttemptsAfterAction: 5,
+        accountLocked: true,
+        lockedUntil: '2026-09-20T10:15:00.000Z',
+        sessionCreated: false,
+    },
+};
+
+console.log('Worked requirement:', lockoutRequirement);
+console.log('Worked risks:', lockoutRisks);
+console.log('Worked test conditions:', lockoutConditions);
+console.log('Worked scenario:', fifthFailureScenario);
+console.log('Worked test case:', fifthFailureTestCase);
+
+/*
+ * The solution starts with purpose and expected behaviour. It does not begin
+ * with Cypress commands or copy the output of an existing implementation.
  */
 
 /*
  * ERROR OBSERVATION
  *
- * Change signIn so a disabled account returns ACCOUNT_DISABLED. Run the file
- * again and inspect which assertions fail. Then ask:
+ * signInWithInformationLeak returned ACCOUNT_DISABLED for the disabled account.
+ * The executed comparison already showed two failed assertions:
  *
- * - Did the product violate an explicit expectation?
- * - Could the expected result be wrong or outdated?
- * - Is the test data really creating a disabled account?
- * - Could another environment or dependency have changed the observation?
+ * - statusCode: expected 401, actual 403
+ * - publicMessage: expected INVALID_CREDENTIALS, actual ACCOUNT_DISABLED
  *
- * The important habit is to investigate the mismatch before naming a defect.
+ * The investigation reviewed the requirement, test code, data, environment,
+ * reproducibility, and independent request evidence. Only then was PRODUCT
+ * recorded as the source. This is the complete failure-to-defect reasoning.
  */
 
 /*
@@ -537,4 +639,3 @@ console.log('Confirmed investigation:', confirmedProductDefect);
  * A: No. The cause may be product behaviour, test code, data, environment, or
  *    an ambiguous expectation. The mismatch must be investigated.
  */
-

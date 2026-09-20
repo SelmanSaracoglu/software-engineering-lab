@@ -3,7 +3,11 @@
   "scripts": {
     "typecheck": "tsc --noEmit",
     "foundation-check": "node --import tsx src/typescript-for-testing/foundation-check/01-typed-api-data-and-test-helpers.ts",
-    "test-foundations:01": "node --import tsx src/test-engineering-foundations/01-requirement-risk-and-test-language.ts"
+    "test-foundations:01": "node --import tsx src/test-engineering-foundations/01-requirement-risk-and-test-language.ts",
+    "test-foundations:02": "node --import tsx src/test-engineering-foundations/02-test-design-techniques.ts",
+    "test-foundations:03": "node --import tsx src/test-engineering-foundations/03-test-levels-and-reliable-tests.ts",
+    "test-foundations:check": "node --import tsx src/test-engineering-foundations/04-test-engineering-foundation-check.ts",
+    "test-foundations": "npm run test-foundations:01 && npm run test-foundations:02 && npm run test-foundations:03 && npm run test-foundations:check"
   },
   "devDependencies": {
     "@types/react": "^19.2.18",
