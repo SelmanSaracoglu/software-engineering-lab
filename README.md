@@ -70,6 +70,16 @@ Node.js, API, log-processing, and security-automation work will apply this
 foundation without reopening it for unrelated syntax topics. React or another
 framework is not the next step merely because TypeScript material exists.
 
+### Test Engineering Foundations
+
+The active executable curriculum is under
+[`src/test-engineering-foundations/`](src/test-engineering-foundations/README.md).
+
+The first increment connects requirements and risks to test conditions,
+scenarios, concrete test cases, expected and actual results, and failure
+investigation. Test frameworks are introduced only after this test-design
+language is understood.
+
 ---
 
 ## Learning Rule
