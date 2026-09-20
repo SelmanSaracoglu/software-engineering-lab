@@ -1,7 +1,10 @@
-# TypeScript Foundations for Testing
+# TypeScript Foundations for Testing and Automation
 
 This directory contains the executable TypeScript foundation required before
-testing fundamentals and Cypress.
+testing fundamentals, Cypress, and later engineering automation. It supports
+the longer-term ability to read application code, process API and telemetry
+data, and build testable security-oriented automation without turning this
+foundation into a framework- or product-specific course.
 
 Every lesson begins with plain-language explanation, uses runnable examples,
 connects the concept to testing where useful, and ends with a summary and
@@ -42,6 +45,10 @@ the repository content, not automatic proof of learner mastery.
 - [x] `arrays/02-arrays-of-objects-and-iteration.ts`
 - [x] `arrays/03-array-transformations-search-and-aggregation.ts`
 
+### Collections
+
+- [x] `collections/01-array-object-record-map-and-set.ts`
+
 ### Type system
 
 - [x] `types/01-literal-union-nullable-and-enum-alternatives.ts`
@@ -67,6 +74,7 @@ lesson and the final foundation check. They are not separate lessons.
 ### Classes
 
 - [x] `classes/01-class-foundations-and-error-subclasses.ts`
+- [x] `classes/02-oop-contracts-composition-and-polymorphism.ts`
 
 ### Asynchronous code
 
@@ -102,3 +110,20 @@ npm run foundation-check
 The foundation check follows typed API data from asynchronous JSON text through
 runtime validation and reusable test helpers. Testing frameworks and assertions
 belong to the next curriculum stage.
+
+## Completion boundary
+
+This curriculum provides the TypeScript language foundation needed to continue
+into testing and automation. It deliberately does not reproduce every topic in
+the TypeScript handbook. Decorators, namespaces, mixins, advanced type-level
+programming, WeakMap, WeakSet, custom iterators, and generators should be learned
+later only when real code requires them.
+
+Completing the repository content does not by itself prove learner mastery.
+Mastery is demonstrated by explaining the concepts, running and changing the
+examples, and applying them in later testing and automation work.
+
+The next curriculum stage is testing fundamentals, followed by deliberate
+Cypress practice. Node.js automation, API integration, log processing, and
+security automation remain later practical stages rather than additional
+TypeScript syntax lessons.
