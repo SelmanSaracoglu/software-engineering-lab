@@ -105,7 +105,7 @@ pass before a commit.
 - [x] Arrange-Act-Assert in executable tests
 - [x] Boundary, state-transition, and table-driven pure-function tests
 - [x] Exception and validation tests
-- [ ] Asynchronous function tests
+- [x] Asynchronous function tests
 - [ ] Dependency boundaries, stubs, spies, and mocks
 - [ ] Fake timers and module mocking
 - [ ] Readability, coverage, and final integrated unit-testing check
@@ -118,6 +118,10 @@ pass before a commit.
   structured custom error.
 - `02-order-input-validation.test.ts` verifies valid results, exception
   contracts, structured issues, and invalid boundaries.
+- `03-payment-status-check.ts` validates data from an asynchronous status
+  source and translates source failures into a domain-specific error.
+- `03-payment-status-check.test.ts` demonstrates direct `await`, `resolves`,
+  `rejects`, Promise-returning tests, and asynchronous error inspection.
 
 Production and test code are separate because they have different
 responsibilities. Production code implements behaviour; test code provides
