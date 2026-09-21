@@ -104,7 +104,7 @@ pass before a commit.
 - [x] Primitive and object matchers
 - [x] Arrange-Act-Assert in executable tests
 - [x] Boundary, state-transition, and table-driven pure-function tests
-- [ ] Exception and validation tests
+- [x] Exception and validation tests
 - [ ] Asynchronous function tests
 - [ ] Dependency boundaries, stubs, spies, and mocks
 - [ ] Fake timers and module mocking
@@ -114,6 +114,10 @@ pass before a commit.
 
 - `01-lockout-policy.ts` contains the production rule.
 - `01-lockout-policy.test.ts` contains the first Vitest suite.
+- `02-order-input-validation.ts` validates unknown runtime data and throws a
+  structured custom error.
+- `02-order-input-validation.test.ts` verifies valid results, exception
+  contracts, structured issues, and invalid boundaries.
 
 Production and test code are separate because they have different
 responsibilities. Production code implements behaviour; test code provides
