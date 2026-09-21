@@ -98,6 +98,16 @@ compiler, unit-suite, and coverage closure proof.
 The next stage teaches only the React knowledge required to understand and test
 component inputs, state, events, rendering, context, and routing.
 
+### React for Component Testing
+
+The active focused React curriculum is under
+[`src/react-for-component-testing/`](src/react-for-component-testing/README.md).
+
+The first increment introduces function components, JSX, typed props,
+parent-to-child data flow, composition, semantic output, and the component
+input-output boundary. Runtime verification uses static React rendering without
+pretending that it is already a browser interaction test.
+
 ---
 
 ## Learning Rule

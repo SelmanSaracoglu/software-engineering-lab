@@ -7,6 +7,8 @@
     "test:unit": "vitest run src/unit-testing-with-vitest",
     "test:unit:coverage": "vitest run src/unit-testing-with-vitest --coverage",
     "test:unit:closure": "npm run typecheck && npm run test:unit:coverage",
+    "react-foundations:01": "node --import tsx src/react-for-component-testing/01-component-jsx-and-props.check.tsx",
+    "react-foundations": "npm run react-foundations:01",
     "foundation-check": "node --import tsx src/typescript-for-testing/foundation-check/01-typed-api-data-and-test-helpers.ts",
     "test-foundations:01": "node --import tsx src/test-engineering-foundations/01-requirement-risk-and-test-language.ts",
     "test-foundations:02": "node --import tsx src/test-engineering-foundations/02-test-design-techniques.ts",
