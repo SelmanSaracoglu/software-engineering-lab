@@ -64,11 +64,11 @@ Material implementation and compiler verification do not by themselves prove
 individual mastery. A topic is learned when it can be explained, modified, and
 applied to a new example.
 
-The TypeScript language curriculum is now closed at the foundation level. The
-next planned sequence is testing fundamentals followed by Cypress. Later
-Node.js, API, log-processing, and security-automation work will apply this
-foundation without reopening it for unrelated syntax topics. React or another
-framework is not the next step merely because TypeScript material exists.
+The TypeScript language curriculum is closed at the foundation level and has
+now been applied through the Test Engineering Foundations and Vitest stages.
+Later Node.js, API, log-processing, and security-automation work will continue
+to use it without reopening unrelated syntax topics. The next focused step is
+only the React knowledge required for component testing.
 
 ### Test Engineering Foundations
 
@@ -82,16 +82,21 @@ failure investigation.
 
 The integrated foundation check distributes one feature across unit, component,
 API/integration, and E2E boundaries while validating requirement and high-risk
-coverage. The next practical stage is Vitest unit testing.
+coverage. Its following practical stage, Vitest unit testing, is now complete.
 
 ### Unit Testing with Vitest
 
-The active Vitest curriculum is under
+The completed Vitest foundation is under
 [`src/unit-testing-with-vitest/`](src/unit-testing-with-vitest/README.md).
 
-The first increment separates a pure lockout policy from its test suite and
-uses real Vitest tests for Arrange-Act-Assert, matchers, boundary analysis,
-state transitions, deterministic time input, and table-driven cases.
+The stage covers pure functions, boundaries, table-driven cases, validation,
+custom exceptions, asynchronous success and failure, dependency boundaries,
+fakes, stubs, spies, mocks, fake timers, module mocking, HTTP adapters,
+readability, and V8 coverage gates. `npm run test:unit:closure` is the repeatable
+compiler, unit-suite, and coverage closure proof.
+
+The next stage teaches only the React knowledge required to understand and test
+component inputs, state, events, rendering, context, and routing.
 
 ---
 
